@@ -8,7 +8,7 @@ class AccountCreate(BaseModel):
     last_name: str
     password: str
     email: EmailStr
-    age: datetime | None = None
+    birth_date: datetime | None = None
 
 class AccountResponse(BaseModel):
     id: UUID
@@ -16,7 +16,7 @@ class AccountResponse(BaseModel):
     first_name: str
     last_name: str
     email: EmailStr
-    age: datetime | None = None
+    birth_date: datetime | None = None
 
     class Config:
         from_attributes = True

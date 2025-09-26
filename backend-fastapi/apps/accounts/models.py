@@ -17,7 +17,7 @@ class Account(Base):
     last_name = Column(String(40), nullable=False)
     password = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
-    age = Column(DateTime, nullable=True)
+    birth_date = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.timezone.utc, nullable=False)
     updated_at = Column(DateTime, default=datetime.timezone.utc, onupdate=datetime.timezone.utc, nullable=False)
 
