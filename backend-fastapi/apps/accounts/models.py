@@ -18,8 +18,9 @@ class Account(Base):
     password = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     birth_date = Column(DateTime, nullable=True)
-    created_at = Column(DateTime, default=datetime.timezone.utc, nullable=False)
-    updated_at = Column(DateTime, default=datetime.timezone.utc, onupdate=datetime.timezone.utc, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc),
+                        onupdate=lambda: datetime.now(timezone.utc), nullable=False)
 
     @validates("password")
     def password_validator(self, key, value):
