@@ -24,3 +24,8 @@ def validate_email(self, key, value):
     if not re.match(email_regex, value):
         raise ValueError(f"Invalid email address: {value}")
     return value
+
+def validate_price(self, key, value):
+    if value > 0:
+        return value
+    raise ValueError(f"Invalid price, price can't be {value}")
