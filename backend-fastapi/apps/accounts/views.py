@@ -1,4 +1,3 @@
-# apps/accounts/services/account_service.py
 from sqlalchemy.orm import Session
 from apps.accounts.models import Account
 
