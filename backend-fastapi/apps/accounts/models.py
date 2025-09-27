@@ -1,10 +1,10 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, ARRAY
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import validates
 import uuid
 from datetime import datetime, timezone
-from utils.validators import validate_and_hash_password, validate_email, validate_role
+from utils.validators import validate_and_hash_password, validate_email, validate_roles
 
 Base = declarative_base()
 
@@ -18,7 +18,7 @@ class Account(Base):
     password = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     birth_date = Column(DateTime, nullable=True)
-    role = Column(String(10), nullable = False, default="MEMBER")
+    roles = Column(ARRAY(String), nullable = False, default=list)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc),
                         onupdate=lambda: datetime.now(timezone.utc), nullable=False)
@@ -31,6 +31,6 @@ class Account(Base):
     def email_validator(self, key, value):
         return validate_email(value)
 
-    @validates("role")
+    @validates("roles")
     def role_validator(self, key, value):
-        return validate_role(value)
+        return validate_roles(value)

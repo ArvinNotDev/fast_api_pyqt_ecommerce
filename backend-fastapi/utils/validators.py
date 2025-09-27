@@ -2,6 +2,9 @@ from bcrypt import hashpw, gensalt
 import re
 
 
+VALID_PERMISSIONS = {"admin", "member", "seller"}
+
+
 def validate_and_hash_password(obj, key, value):
         if len(value) < 8:
             raise ValueError("Password must be at least 8 characters")
@@ -30,8 +33,17 @@ def validate_price(value):
         return value
     raise ValueError(f"Invalid price, price can't be {value}")
 
-def validate_role(value):
-     CHOICE = ["MEMBER", "ADMIN", ""]
-     if value in CHOICE:
-          return value
-     return "MEMBER"
+def validate_roles(value):
+    if not isinstance(value, (list, tuple)):
+        raise ValueError("Permissions must be a list/array")
+
+    invalid = [p for p in value if p not in VALID_PERMISSIONS]
+    if invalid:
+        raise ValueError(f"Invalid permissions: {invalid}")
+
+    return list(set(value))
+
+def validate_seller(self, key, value):
+    if "admin" in value.roles or "seller" in value.roles:
+        return value
+    return ValueError("This account cannot be a seller")
