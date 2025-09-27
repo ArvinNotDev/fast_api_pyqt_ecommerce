@@ -3,7 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import validates
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from utils.validators import validate_and_hash_password, validate_email
 
 Base = declarative_base()
