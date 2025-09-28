@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, Integer
+from sqlalchemy import Column, String, DateTime, Float
 from sqlalchemy.orm import validates, relationship
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.declarative import declarative_base
@@ -16,7 +16,7 @@ class Product(Base):
     name = Column(String(60), nullable=False)
     description = Column(String(255), nullable=True)
     seller = relationship("Account", backref="products")
-    price = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc),
                         onupdate=lambda: datetime.now(timezone.utc), nullable=False)
