@@ -4,8 +4,6 @@ from apps.accounts.models import Account
 def create_account(db: Session, account_data: dict) -> Account:
     """
     Create a new account in the database.
-    `account_data` should be a dict containing keys:
-    username, first_name, last_name, password, email, age
     """
     account = Account(**account_data)
     db.add(account)
